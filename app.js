@@ -23,12 +23,31 @@ if (Math.floor(Math.random() * 2) === 0) {
 
 //the game loop
 function runGame() {
-  //moving the ball from the current position
+  //---------------------moving the ball from the current position
   xP += xV;
   yP += yV;
-  //clearing the canvas
+
+  //-------------------clearing the canvas
   canvasContext.clearRect(0, 0, canvasEl.width, canvasEl.height);
-  //drawing the ball
+
+  //---------------collision detection
+  //bottom boundary
+  if (yV > 0 && yP >= canvasEl.height - radius) {
+    yV = -yV;
+  }
+  //right boundary
+  if (xV > 0 && xP >= canvasEl.width - radius) {
+    xV = -xV;
+  }
+  //top boundary
+  if (yV < 0 && yP <= radius) {
+    yV = -yV;
+  }
+  //left boundary
+  if (xV < 0 && xP <= radius) {
+    xV = -xV;
+  }
+  //----------------------------drawing the ball
   canvasContext.beginPath();
   canvasContext.fillStyle = "orange";
   canvasContext.arc(xP, yP, radius, 0, Math.PI * 2);
